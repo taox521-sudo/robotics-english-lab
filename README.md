@@ -5,6 +5,7 @@
 ## 本地入口
 
 - `index.html`：学习资料库首页
+- `daily_practice.html`：独立的今日练习页
 - `product_introduction_learning_guide.html`：机器人关节与机械臂产品英语模块
 - `learning-assets/`：语法教练、音频控制和页面样式
 - `english_pronunciation_audio/`：完整、逐句、词汇和客户问答音频
@@ -17,4 +18,4 @@
 
 ## 后续更新
 
-以后新增产品模块时，保持 HTML、`learning-assets` 和音频的相对目录结构，并在首页的学习路径中加入入口。更新后提交并推送到默认分支，GitHub Pages 会重新发布。
+以后新增产品模块时，保持 HTML、`learning-assets` 和音频的相对目录结构，并在首页的产品课程区加入入口。每日复习入口保持独立，不把进度卡片嵌入产品课程页。更新后提交并推送到默认分支，GitHub Pages 会重新发布。

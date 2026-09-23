@@ -22,11 +22,22 @@
     catch { storageAvailable = false; }
     renderReview();
   }
-  const review = document.createElement('section');
-  review.id = 'grammar-review';
-  review.className = 'gc-review intro';
-  review.innerHTML = `<div class="gc-review-heading"><div><span class="gc-eyebrow">YOUR SPEAKING TOOLKIT</span><h2>把语法变成能说的话</h2><p>刚开始，先练「介绍参数」和「说明能力」。每次选一个主题，答两题，再说给客户听。</p></div><button type="button" class="gc-primary" data-review-next>开始今日练习 <span aria-hidden="true">→</span></button></div><div class="gc-review-summary" role="status" aria-live="polite"></div><div class="gc-topics"></div><p class="gc-storage"></p>`;
-  document.getElementById('sentence-study').before(review);
+  // Daily review has its own page. Course pages keep only their sentence teaching units.
+  const review = document.querySelector('[data-grammar-review]');
+  const dailySession = document.getElementById('daily-session');
+  let activeLesson = null;
+  if (review) {
+    review.innerHTML = `<div class="gc-review-heading"><div><span class="gc-eyebrow">YOUR SPEAKING TOOLKIT</span><h2>从一句能用的话开始</h2><p>自动练习会优先选择待巩固的题目；也可以自己挑一个主题。</p></div><button type="button" class="gc-primary" data-review-next>开始今日练习 <span aria-hidden="true">→</span></button></div><div class="gc-review-summary" role="status" aria-live="polite"></div><div class="gc-topics"></div><p class="gc-storage"></p>`;
+    const lessonsHost = document.querySelector('[data-daily-lessons]');
+    for (const id of Object.keys(course.lessons)) {
+      const section = document.createElement('section');
+      section.className = 'sentence';
+      section.dataset.sentence = id;
+      section.hidden = true;
+      section.innerHTML = `<div class="daily-source"><span>产品课程 01 · 第 ${escape(id)} 句</span><a href="product_introduction_learning_guide.html#sentence-${escape(id)}">回到课程查看原句与跟读音频 ↗</a></div>`;
+      lessonsHost.append(section);
+    }
+  }
 
   function answerIsValid(answer, quiz) {
     return answer && Number.isInteger(answer.choice) && answer.choice >= 0 && answer.choice < quiz.choices.length;
@@ -48,15 +59,22 @@
     return {answered, correct, spoken, latest, total: topic.lessons.reduce((n, id) => n + course.lessons[id].quizzes.length, 0)};
   }
   function renderReview() {
+    if (!review) {
+      if (!storageAvailable) {
+        const status = document.getElementById('learning-status');
+        if (status) status.textContent = '当前浏览器无法保存练习记录；仍可学习，刷新后记录可能丢失。';
+      }
+      return;
+    }
     const totals = {answered:0, correct:0, total:0};
     review.querySelector('.gc-topics').innerHTML = course.topics.map((topic, index) => {
       const p = topicProgress(topic);
       Object.keys(totals).forEach(k => totals[k] += p[k]);
       const label = p.answered === 0 ? '尚未练习' : p.correct < p.answered ? '有题目待巩固' : p.answered < p.total ? '继续完成练习' : '选择题已答对 · 再练开口';
       const date = p.latest ? `最近练习 ${new Date(p.latest).toLocaleDateString('zh-CN')}` : '从一句能用的话开始';
-      return `<a class="gc-topic" data-topic="${escape(topic.id)}" href="#sentence-${topic.lessons[0]}"><span class="gc-topic-number">${String(index + 1).padStart(2,'0')}</span><div><h3>${escape(topic.title)}</h3><p lang="en">${escape(topic.pattern)}</p><small>${label}</small><div class="gc-meter" aria-label="最近答案正确 ${p.correct}，共 ${p.total} 题"><span style="width:${p.correct / p.total * 100}%"></span></div><small>已答 ${p.answered}/${p.total} · 最近答案正确 ${p.correct}/${p.total}<br>自评能独立说 ${p.spoken}/${topic.lessons.length} 句 · ${date}</small></div><span aria-hidden="true">↗</span></a>`;
+      return `<a class="gc-topic" data-topic="${escape(topic.id)}" href="#sentence-${topic.lessons[0]}"${topic.lessons.includes(activeLesson) ? ' aria-current="true"' : ''}><span class="gc-topic-number">${String(index + 1).padStart(2,'0')}</span><div><h3>${escape(topic.title)}</h3><p lang="en">${escape(topic.pattern)}</p><small>${label}</small><div class="gc-meter" aria-label="最近答案正确 ${p.correct}，共 ${p.total} 题"><span style="width:${p.correct / p.total * 100}%"></span></div><small>已答 ${p.answered}/${p.total} · 最近答案正确 ${p.correct}/${p.total}<br>自评能独立说 ${p.spoken}/${topic.lessons.length} 句 · ${date}</small></div><span aria-hidden="true">↗</span></a>`;
     }).join('');
-    review.querySelector('.gc-review-summary').textContent = `本模块 ${Object.keys(course.lessons).length} 句 · 已练 ${totals.answered}/${totals.total} 题 · 最近答案正确 ${totals.correct} 题。看过讲解不会自动记为掌握。`;
+    review.querySelector('.gc-review-summary').textContent = `课程累计 · ${Object.keys(course.lessons).length} 句 · 已练 ${totals.answered}/${totals.total} 题 · 最近答案正确 ${totals.correct} 题。以下记录包含此前的练习，不是今天的新增数量。`;
     review.querySelector('.gc-storage').textContent = storageAvailable ? '练习与草稿保存在当前浏览器，暂不跨设备同步。清理浏览器数据会清除记录。' : '当前浏览器无法保存记录；本次仍可练习，关闭或刷新页面后记录可能丢失。';
     review.querySelector('[data-review-next]').textContent = totals.answered ? '继续练习 →' : '开始今日练习 →';
   }
@@ -66,6 +84,17 @@
   }
   function openPractice(target) {
     const unit = document.querySelector(`[data-coach="${target.id}"]`);
+    if (!unit) return;
+    if (dailySession) {
+      dailySession.hidden = false;
+      activeLesson = target.id;
+      document.querySelectorAll('[data-daily-lessons] > .sentence').forEach(section => {
+        section.hidden = section.dataset.sentence !== target.id;
+        if (section.hidden) section.querySelectorAll('audio').forEach(audio => audio.pause());
+      });
+      document.getElementById('daily-session-title').textContent = course.lessons[target.id].title;
+      renderReview();
+    }
     unit.open = true;
     unit.querySelector('[data-practice]').open = true;
     const question = unit.querySelector(`[data-quiz="${target.index}"]`);
@@ -75,12 +104,25 @@
     question.querySelector('[data-choice]').focus({preventScroll:true});
     question.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'center'});
   }
-  review.addEventListener('click', event => {
+  review?.addEventListener('click', event => {
     const topicLink = event.target.closest('[data-topic]');
     if (topicLink) {
       event.preventDefault();
       openPractice(chooseTarget(course.topics.find(t => t.id === topicLink.dataset.topic).lessons));
     } else if (event.target.closest('[data-review-next]')) openPractice(chooseTarget(course.topics.flatMap(t => t.lessons)));
+  });
+  document.querySelector('[data-daily-next]')?.addEventListener('click', () => {
+    const remaining = course.topics.flatMap(topic => topic.lessons).filter(id => id !== activeLesson);
+    openPractice(chooseTarget(remaining.length ? remaining : [activeLesson]));
+  });
+  document.querySelector('[data-daily-back]')?.addEventListener('click', event => {
+    event.preventDefault();
+    dailySession.querySelectorAll('audio').forEach(audio => audio.pause());
+    dailySession.hidden = true;
+    activeLesson = null;
+    renderReview();
+    review.querySelector('[data-review-next]').focus({preventScroll:true});
+    review.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
   });
 
   for (const [id, lesson] of Object.entries(course.lessons)) {
@@ -201,4 +243,18 @@
   }
   // Shared playback, looping and exclusive audio are handled by audio-controls.js.
   renderReview();
+  function openLinkedSentence() {
+    const match = location.hash.match(/^#sentence-(\d+)$/);
+    if (!match || !Object.hasOwn(course.lessons,match[1])) return;
+    if (dailySession) openPractice(chooseTarget([match[1]]));
+    else {
+      const unit = document.querySelector(`[data-coach="${match[1]}"]`);
+      if (unit) {
+        unit.open = true;
+        unit.closest('.sentence').scrollIntoView({block:'start'});
+      }
+    }
+  }
+  openLinkedSentence();
+  window.addEventListener('hashchange',openLinkedSentence);
 })();

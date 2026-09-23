@@ -5,6 +5,7 @@
 ## 网站入口
 
 - `index.html`：资料库首页
+- `daily_practice.html`：独立今日练习页，集中显示进度和一个句子的练习
 - `product_introduction_learning_guide.html`：当前产品学习模块
 - `english_pronunciation_audio/`：逐句、单词和商务表达音频
 - `product_introduction_sync_full.m4a`：完整跟随音频
