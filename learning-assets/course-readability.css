@@ -1,0 +1,14 @@
+/* Full sentence mode: show all eight sentences as a readable mobile-first stack. */
+.course-main .course-modes{position:sticky;top:0;z-index:5;background:var(--page);padding-top:4px}
+.course-main .course-modes button{flex:1}
+.course-main .sentence[hidden]{display:none!important}
+.course-main .sentence:not([hidden]){scroll-margin-top:64px}
+.course-main[data-sentence-mode="all"]>.sentence{display:block}
+@media(max-width:680px){
+  .course-main .course-modes{top:56px;padding:4px 0 0}
+  .course-main .course-modes button{min-width:0;padding:10px 6px;font-size:14px}
+  .course-main>.sentence{padding:15px 13px;margin-bottom:12px}
+  .course-main>.sentence h3{font-size:16px;margin-bottom:10px}
+  .course-main>.sentence>.english{font-size:19px;line-height:1.7;margin:14px 0}
+  .course-main .course-vocabulary>summary,.course-main .gc-coach>.gc-goal{font-size:15px}
+}
