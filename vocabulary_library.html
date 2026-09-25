@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>单词库 · Robotics English Lab</title>
+  <link rel="stylesheet" href="learning-assets/vocabulary-library.css">
+</head>
+<body class="vocab-page">
+  <header class="vocab-topbar">
+    <a class="vocab-brand" href="robotics_english_library.html"><span>R</span><strong>ROBOTICS ENGLISH LAB</strong></a>
+    <nav aria-label="网站导航"><a href="robotics_english_library.html">学习资料库</a><a href="daily_practice.html">今日练习</a><a href="product_introduction_learning_guide.html">产品课程</a></nav>
+  </header>
+
+  <main>
+    <section class="vocab-hero" aria-labelledby="page-title">
+      <div>
+        <span class="vocab-eyebrow">YOUR WORD BANK · ROBOTICS BUSINESS ENGLISH</span>
+        <h1 id="page-title">单词库</h1>
+        <p>把每个产品模块里的词汇，汇总成一套可以反复听、反复说、长期积累的行业词库。</p>
+      </div>
+      <div class="vocab-hero-stat"><strong id="hero-total">0</strong><span>个行业词汇</span></div>
+    </section>
+
+    <section class="vocab-summary" aria-label="单词库进度">
+      <div><strong id="summary-total">0</strong><span>词汇总数</span></div>
+      <div><strong id="summary-mastered">0</strong><span>已掌握</span></div>
+      <div><strong id="summary-remaining">0</strong><span>待复习</span></div>
+      <div><strong id="summary-visible">0</strong><span>当前显示</span></div>
+    </section>
+
+    <section class="vocab-tools" aria-label="搜索和筛选">
+      <label class="vocab-search"><span aria-hidden="true">⌕</span><input id="vocab-search" type="search" placeholder="搜索英文、中文、例句或来源…" autocomplete="off"></label>
+      <div class="vocab-filters" role="group" aria-label="按词性筛选">
+        <button type="button" class="is-active" data-filter="all">全部</button>
+        <button type="button" data-filter="n.">名词</button>
+        <button type="button" data-filter="v.">动词</button>
+        <button type="button" data-filter="adj.">形容词</button>
+        <button type="button" data-filter="adv.">副词</button>
+        <button type="button" data-filter="phrase">短语/缩写</button>
+      </div>
+      <label class="mastered-filter"><input id="only-unmastered" type="checkbox"><span>只看待复习</span></label>
+    </section>
+
+    <section class="vocab-list-head"><div><span class="vocab-eyebrow">KEEP BUILDING</span><h2>行业词汇</h2></div><p>先听单词，再读例句，最后用自己的产品替换例句。</p></section>
+    <section id="vocab-list" class="vocab-grid" aria-live="polite"></section>
+    <p id="vocab-empty" class="vocab-empty" hidden>没有找到匹配词汇。试试换一个关键词，或切换词性筛选。</p>
+
+    <section class="vocab-method">
+      <div><span class="vocab-eyebrow">A SIMPLE ROUTINE</span><h2>每天这样背 5 个</h2></div>
+      <ol><li><strong>听</strong><span>点小喇叭，听清重音和节奏。</span></li><li><strong>读</strong><span>看音标和行业例句，理解搭配。</span></li><li><strong>说</strong><span>把例句里的产品换成自己的表达。</span></li></ol>
+    </section>
+  </main>
+  <footer class="vocab-footer"><span>Robotics English Lab · vocabulary grows with every product module</span><a href="robotics_english_library.html">返回资料库首页 ↑</a></footer>
+
+  <script src="learning-assets/vocabulary-data.js"></script>
+  <script src="learning-assets/vocabulary-library.js"></script>
+</body>
+</html>

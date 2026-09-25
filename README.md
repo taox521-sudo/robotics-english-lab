@@ -6,6 +6,7 @@
 
 - `index.html`：学习资料库首页
 - `daily_practice.html`：独立的今日练习页
+- `vocabulary_library.html`：长期积累的独立单词库，支持搜索、词性筛选、例句和发音
 - `product_introduction_learning_guide.html`：机器人关节与机械臂产品英语模块
 - `learning-assets/`：语法教练、音频控制和页面样式
 - `english_pronunciation_audio/`：完整、逐句、词汇和客户问答音频

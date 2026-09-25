@@ -6,6 +6,7 @@
 
 - `index.html`：资料库首页
 - `daily_practice.html`：独立今日练习页，集中显示进度和一个句子的练习
+- `vocabulary_library.html`：集中背词页，包含词性、音标、例句、发音和掌握记录
 - `product_introduction_learning_guide.html`：当前产品学习模块
 - `english_pronunciation_audio/`：逐句、单词和商务表达音频
 - `product_introduction_sync_full.m4a`：完整跟随音频
@@ -26,7 +27,7 @@ Nginx 的站点根目录指向这个文件夹，并让首页使用 `index.html`�
 
 ## 更新方式
 
-以后新增产品模块时，将新的 HTML 和音频放入网站目录，并在 `index.html` 的学习路径中增加一个模块卡片即可。
+以后新增产品模块时，将新的 HTML 和音频放入网站目录，并在 `index.html` 的学习路径中增加一个模块卡片即可。新增词汇时同步追加到 `learning-assets/vocabulary-data.js`，单词库会持续汇总。
 
 语法模块的讲解、题目、反馈与对话放在模块数据文件中。沿用 `robotics_english_learning_template.md` 的教学结构。新模块分配独立且稳定的 moduleId，不复用其他模块的标识；模块数据文件与音频名也应独立。
 
