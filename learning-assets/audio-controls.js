@@ -73,6 +73,11 @@
     options.append(speed);
     metadata.append(state,time);timeline.append(metadata,seek);mainRow.append(toggle,timeline);
     bar.replaceChildren(mainRow,options,note);
+    if(audio.id==='full-sync-audio'){
+      const title=document.createElement('span');title.className='listening-dock-title';title.textContent='全文音频';title.setAttribute('aria-hidden','true');
+      bar.insertBefore(title,mainRow);
+      bar.dataset.fullDock='true';
+    }
     if(followStatus){followStatus.classList.add('listening-sr-only');bar.append(followStatus);}
     const clock=value=>`${Math.floor(value/60)}:${String(Math.floor(value%60)).padStart(2,'0')}`;
     function syncProgress(){
