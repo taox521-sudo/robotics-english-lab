@@ -12,3 +12,4 @@
   .course-main>.sentence>.english{font-size:19px;line-height:1.7;margin:14px 0}
   .course-main .course-vocabulary>summary,.course-main .gc-coach>.gc-goal{font-size:15px}
 }
+.course-main .gc-coach,.course-main .gc-review{--gc-ink:#163b31;--gc-muted:#4b665d;--gc-green:#0b7a5a;--gc-line:#c9dad2}.course-main .full-sync-playing{color:#875000!important;background:#fff0bf}.course-main .sentence.playing>.english{color:#875000;background:#fff0bf}

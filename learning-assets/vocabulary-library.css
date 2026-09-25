@@ -118,3 +118,4 @@ html.has-vocab-audio { scroll-padding-bottom:150px; }
   .vocab-status-filters button { padding:8px 9px; }
   .vocab-row { padding-left:9px; padding-right:9px; }
 }
+.vocab-page{color:#163b31;background:#f3faf7}.vocab-heading h1,.vocab-term{color:#163b31}.vocab-primary{background:#0b7a5a}.vocab-primary:hover{background:#075c43}.vocab-status-filters button[aria-pressed=true],.vocab-pos-filters button[aria-pressed=true]{color:#075c43;background:#e4f4ec}.vocab-play[aria-pressed=true]{background:#0b7a5a;border-color:#0b7a5a}.vocab-row.is-playing{background:#e4f4ec;border-left-color:#0b7a5a}.vocab-detail,.vocab-list{border-color:#c9dad2}.vocab-row{border-bottom-color:#c9dad2}.vocab-search{border-color:#afc8bb}.vocab-example-zh,.vocab-source,.vocab-results{color:#4b665d}
