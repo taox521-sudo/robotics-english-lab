@@ -12,4 +12,5 @@
   .course-main>.sentence>.english{font-size:19px;line-height:1.7;margin:14px 0}
   .course-main .course-vocabulary>summary,.course-main .gc-coach>.gc-goal{font-size:15px}
 }
-.course-main .gc-coach,.course-main .gc-review{--gc-ink:#1d2a44;--gc-muted:#5b6b83;--gc-green:#516bff;--gc-line:#d8e2f2}.course-main .full-sync-playing{color:#9a4d00!important;background:#fff0d6}.course-main .sentence.playing>.english{color:#9a4d00;background:#fff0d6}
+.course-main .gc-coach,.course-main .gc-review{--gc-ink:#1d2a44;--gc-muted:#5b6b83;--gc-green:#516bff;--gc-line:#d8e2f2}.course-main .gc-coach>.gc-goal,.course-main .gc-coach .gc-details[open]>summary{background:#eef1ff}.course-main .gc-part,.course-main .gc-subject,.course-main .gc-verb,.course-main .gc-object{border-top-color:#8ba0ff;background:#f4f6ff}.course-main .full-sync-playing{color:#9a4d00!important;background:#fff0d6}.course-main .sentence.playing>.english{color:#9a4d00;background:#fff0d6}
+.course-main>.sentence{margin-bottom:12px}.course-main>.sentence p{margin-top:7px;margin-bottom:8px}.course-main>.sentence>.english{margin-top:12px;margin-bottom:12px}.course-main>.sentence details{margin-top:7px;margin-bottom:7px}.course-main .gc-coach{margin-top:7px;margin-bottom:7px}.course-main #overview>.english{margin-top:7px;margin-bottom:7px}.course-main #overview>h3{margin-top:18px;margin-bottom:8px}
