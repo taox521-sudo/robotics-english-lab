@@ -51,11 +51,38 @@
     const followStatus = existingBar?.querySelector('#follow-status');
     if (followStatus) { bar.insertBefore(label,followStatus); bar.insertBefore(note,followStatus); }
     else bar.append(label,note);
+    // One main playback row; secondary options expand only when needed.
+    const seek=document.createElement('input');
+    seek.type='range'; seek.min='0'; seek.max='1'; seek.step='0.1'; seek.value='0';
+    seek.className='listening-seek'; seek.setAttribute('aria-label','音频播放进度'); seek.setAttribute('aria-controls',audio.id);
+    const time=document.createElement('span');time.className='listening-time';
+    const settings=document.createElement('details');settings.className='listening-settings';
+    settings.innerHTML='<summary>设置</summary><div class="listening-settings-body"></div>';
+    const options=settings.querySelector('div');
+    options.append(restart,label);
+    const speed=document.createElement('label');speed.className='listening-speed';
+    speed.innerHTML='<span>速度</span><select aria-label="音频播放速度"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option></select>';
+    let selectedRate=audio.playbackRate||1;
+    const speedSelect=speed.querySelector('select');speedSelect.addEventListener('change',()=>{selectedRate=Number(speedSelect.value);audio.defaultPlaybackRate=selectedRate;audio.playbackRate=selectedRate;});
+    audio.addEventListener('loadedmetadata',()=>{audio.playbackRate=selectedRate;});
+    options.append(speed);
+    bar.insertBefore(seek,note);bar.insertBefore(time,note);bar.insertBefore(settings,note);
+    function syncProgress(){
+      const duration=Number.isFinite(audio.duration)?audio.duration:0;
+      seek.disabled=!duration;seek.max=String(duration||1);seek.value=String(audio.currentTime||0);
+      const clock=value=>`${Math.floor(value/60)}:${String(Math.floor(value%60)).padStart(2,'0')}`;
+      time.textContent=`${clock(audio.currentTime||0)} / ${duration?clock(duration):'—'}`;
+      seek.setAttribute('aria-valuetext',time.textContent);
+    }
+    seek.addEventListener('input',()=>{if(Number.isFinite(audio.duration)){audio.currentTime=Number(seek.value);audio.dispatchEvent(new Event('timeupdate'));}});
+    for(const name of ['timeupdate','loadedmetadata','durationchange','emptied','sourcechange'])audio.addEventListener(name,syncProgress);
+    audio.addEventListener('ratechange',()=>{speedSelect.value=String(audio.playbackRate);});
+    syncProgress();
     if (!existingBar) audio.after(bar);
     function update() {
       const loaded = !!audio.getAttribute('src');
       const playing = !audio.paused && !audio.ended;
-      const text = !loaded ? '先选择音频' : playing ? '暂停' : audio.ended ? '再听一遍' : audio.currentTime > 0 ? '继续播放' : audio.id === 'full-sync-audio' ? '播放全文' : '播放';
+    const text = !loaded ? '选择音频' : playing ? '暂停' : audio.ended ? '再听一遍' : audio.currentTime > 0 ? '继续播放' : audio.id === 'full-sync-audio' ? '播放全文' : '播放';
       toggle.disabled = restart.disabled = !loaded;
       toggle.setAttribute('aria-pressed',String(playing));
       buttonLabel(toggle,text,playing ? 'pause' : 'play');
@@ -87,6 +114,9 @@
   }
 
   // Native looping handles the repeat boundary without rebuilding or reloading a player.
+  document.addEventListener('toggle',event=>{
+    if(event.target instanceof HTMLDetailsElement&&!event.target.open)event.target.querySelectorAll('audio').forEach(audio=>{if(!audio.paused)audio.pause();});
+  },true);
   document.addEventListener('play',event => {
     const current = event.target;
     if (!(current instanceof HTMLMediaElement)) return;

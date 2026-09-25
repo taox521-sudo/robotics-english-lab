@@ -4,56 +4,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>单词库 · Robotics English Lab</title>
+  <link rel="stylesheet" href="learning-assets/workspace.css">
   <link rel="stylesheet" href="learning-assets/vocabulary-library.css">
 </head>
-<body class="vocab-page">
-  <header class="vocab-topbar">
-    <a class="vocab-brand" href="robotics_english_library.html"><span>R</span><strong>ROBOTICS ENGLISH LAB</strong></a>
-    <nav aria-label="网站导航"><a href="robotics_english_library.html">学习资料库</a><a href="daily_practice.html">今日练习</a><a href="product_introduction_learning_guide.html">产品课程</a></nav>
-  </header>
-
-  <main>
-    <section class="vocab-hero" aria-labelledby="page-title">
-      <div>
-        <span class="vocab-eyebrow">YOUR WORD BANK · ROBOTICS BUSINESS ENGLISH</span>
-        <h1 id="page-title">单词库</h1>
-        <p>把每个产品模块里的词汇，汇总成一套可以反复听、反复说、长期积累的行业词库。</p>
+<body class="lab-page vocab-page" data-page="vocabulary">
+  <div data-site-header></div>
+  <main id="main-content" class="lab-main vocab-main">
+    <header class="vocab-heading">
+      <div><h1>单词库</h1><p class="vocab-progress">共 <span id="summary-total">0</span> 词 · 已掌握 <span id="summary-mastered">0</span> 词（自评）</p></div>
+      <button type="button" class="vocab-primary" id="start-flashcards">开始背词 · 5 个</button>
+    </header>
+    <p id="storage-note" class="vocab-notice" role="status" hidden></p>
+    <section id="library-view" aria-label="查阅词库">
+      <div class="vocab-tools">
+        <label class="vocab-search" for="vocab-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span class="vocab-sr-only">搜索英文、中文、例句或来源</span><input id="vocab-search" type="search" placeholder="搜索英文、中文或例句" autocomplete="off"></label>
+        <div class="vocab-filter-row">
+          <div class="vocab-status-filters" role="group" aria-label="按自评状态筛选"><button type="button" data-status="all" aria-pressed="true">全部</button><button type="button" data-status="unmastered" aria-pressed="false">待复习</button><button type="button" data-status="mastered" aria-pressed="false">已掌握</button></div>
+          <button type="button" id="toggle-filters" class="vocab-text-button" aria-expanded="false" aria-controls="extra-filters">筛选 <span aria-hidden="true">⌄</span></button>
+        </div>
+        <div id="extra-filters" class="vocab-extra-filters" hidden>
+          <div class="vocab-pos-filters" role="group" aria-label="按词性筛选"><button type="button" data-filter="all" aria-pressed="true">所有词性</button><button type="button" data-filter="n." aria-pressed="false">名词</button><button type="button" data-filter="v." aria-pressed="false">动词</button><button type="button" data-filter="adj." aria-pressed="false">形容词</button><button type="button" data-filter="adv." aria-pressed="false">副词</button><button type="button" data-filter="prep." aria-pressed="false">介词</button></div>
+          <label class="vocab-phrase-filter"><input type="checkbox" id="phrase-only">只看短语 / 缩写</label><p>词性与短语可组合筛选，例如“名词 + 短语”。</p>
+        </div>
       </div>
-      <div class="vocab-hero-stat"><strong id="hero-total">0</strong><span>个行业词汇</span></div>
+      <p id="vocab-results" class="vocab-results" role="status"><span id="summary-visible">0</span> 个词 · 展开例句可查看来源与自评</p>
+      <div id="vocab-list" class="vocab-list"></div>
+      <div id="vocab-empty" class="vocab-empty" hidden><p>没有匹配的词汇。试试其他关键词或筛选条件。</p><button type="button" id="reset-filters" class="vocab-secondary">清除搜索和筛选</button></div>
     </section>
-
-    <section class="vocab-summary" aria-label="单词库进度">
-      <div><strong id="summary-total">0</strong><span>词汇总数</span></div>
-      <div><strong id="summary-mastered">0</strong><span>已掌握</span></div>
-      <div><strong id="summary-remaining">0</strong><span>待复习</span></div>
-      <div><strong id="summary-visible">0</strong><span>当前显示</span></div>
+    <section id="flashcard-view" class="flashcard-view" aria-label="背词练习" hidden>
+      <div class="flashcard-toolbar"><p id="flash-progress"></p><button type="button" id="exit-session" class="vocab-text-button">返回词库</button></div><div id="flashcard-content"></div>
     </section>
-
-    <section class="vocab-tools" aria-label="搜索和筛选">
-      <label class="vocab-search"><span aria-hidden="true">⌕</span><input id="vocab-search" type="search" placeholder="搜索英文、中文、例句或来源…" autocomplete="off"></label>
-      <div class="vocab-filters" role="group" aria-label="按词性筛选">
-        <button type="button" class="is-active" data-filter="all">全部</button>
-        <button type="button" data-filter="n.">名词</button>
-        <button type="button" data-filter="v.">动词</button>
-        <button type="button" data-filter="adj.">形容词</button>
-        <button type="button" data-filter="adv.">副词</button>
-        <button type="button" data-filter="phrase">短语/缩写</button>
-      </div>
-      <label class="mastered-filter"><input id="only-unmastered" type="checkbox"><span>只看待复习</span></label>
-    </section>
-
-    <section class="vocab-list-head"><div><span class="vocab-eyebrow">KEEP BUILDING</span><h2>行业词汇</h2></div><p>先听单词，再读例句，最后用自己的产品替换例句。</p></section>
-    <section id="vocab-list" class="vocab-grid" aria-live="polite"></section>
-    <p id="vocab-empty" class="vocab-empty" hidden>没有找到匹配词汇。试试换一个关键词，或切换词性筛选。</p>
-
-    <section class="vocab-method">
-      <div><span class="vocab-eyebrow">A SIMPLE ROUTINE</span><h2>每天这样背 5 个</h2></div>
-      <ol><li><strong>听</strong><span>点小喇叭，听清重音和节奏。</span></li><li><strong>读</strong><span>看音标和行业例句，理解搭配。</span></li><li><strong>说</strong><span>把例句里的产品换成自己的表达。</span></li></ol>
+    <section id="vocab-player" class="vocab-player" aria-label="单词发音播放器" hidden>
+      <div class="vocab-player-top"><p id="player-word" lang="en"></p><label class="vocab-loop"><input id="audio-loop" type="checkbox">循环</label><button type="button" id="restart-audio" class="vocab-text-button">从头播放</button><button type="button" id="close-player" class="vocab-text-button vocab-close-player" aria-label="暂停并收起播放器"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+      <audio id="vocab-audio" controls preload="none" aria-label="单词发音"></audio><p id="audio-note" class="vocab-audio-note" role="status" hidden></p>
     </section>
   </main>
-  <footer class="vocab-footer"><span>Robotics English Lab · vocabulary grows with every product module</span><a href="robotics_english_library.html">返回资料库首页 ↑</a></footer>
-
+  <footer class="site-footer">记录保存在当前浏览器 · “已掌握”为个人自评，可随时调整</footer>
+  <div data-site-nav></div>
   <script src="learning-assets/vocabulary-data.js"></script>
   <script src="learning-assets/vocabulary-library.js"></script>
+  <script src="learning-assets/workspace.js"></script>
 </body>
 </html>

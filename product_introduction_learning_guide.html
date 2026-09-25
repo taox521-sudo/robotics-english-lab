@@ -7,248 +7,31 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>机器人产品英文介绍学习页</title>
-  <style>
-    :root { color-scheme: light; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 16px; }
-    * { box-sizing: border-box; }
-    body { max-width: 1080px; margin: 0 auto; padding: 24px 22px 80px; color: #243248; line-height: 1.72; background: linear-gradient(145deg, #f3f7fc 0%, #f8fafc 48%, #eef5ff 100%); }
-    .hero { padding: 34px 36px 30px; border: 1px solid #d8e5f5; border-radius: 22px; color: #f8fbff; background: linear-gradient(125deg, #12315b 0%, #1f5c91 52%, #397eaa 100%); box-shadow: 0 18px 38px rgba(30, 77, 121, .18); }
-    .eyebrow { letter-spacing: .14em; font-size: .72rem; font-weight: 800; color: #b9e2ff; }
-    h1 { margin: 6px 0 8px; font-size: clamp(1.8rem, 4vw, 2.55rem); letter-spacing: -.02em; }
-    .hero p { max-width: 760px; margin: 0; color: #dceeff; }
-    h2 { margin: 8px 0 14px; color: #102d50; font-size: 1.45rem; letter-spacing: -.01em; }
-    h3 { margin: 22px 0 8px; color: #1f5f9e; font-size: 1.12rem; }
-    .intro, .sentence { background: rgba(255, 255, 255, .96); border: 1px solid #d8e3f0; border-radius: 16px; padding: 25px 28px; margin: 22px 0; box-shadow: 0 8px 22px rgba(30, 64, 96, .07); }
-    .audio { display: block; margin: 10px 0 16px; width: min(100%, 680px); height: 38px; }
-    .english { font-size: 1.08rem; font-weight: 600; color: #10263e; }
-    .translation { color: #42526a; }
-    .label { font-weight: 750; color: #425b78; }
-    .pronunciation { color: #6941a5; }
-    table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; margin-top: 12px; border: 1px solid #dbe5ef; border-radius: 10px; }
-    th, td { text-align: left; vertical-align: top; border-bottom: 1px solid #e7edf4; padding: 10px 11px; }
-    th { color: #36516d; background: #f1f6fb; font-size: .92rem; }
-    tr:last-child td { border-bottom: 0; }
-    .tip { border-left: 4px solid #2774b8; padding: 10px 15px; background: #edf6ff; border-radius: 0 8px 8px 0; }
-    .module-header { display: flex; align-items: flex-start; gap: 14px; margin: 34px 4px 12px; }
-    .module-index { display: inline-grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 11px; color: #fff; font-size: .85rem; font-weight: 800; background: #2774b8; box-shadow: 0 5px 12px rgba(39, 116, 184, .22); }
-    .module-header h2 { margin: 0; }
-    .module-header p { margin: 1px 0 0; color: #667890; }
-    .section-nav { position: sticky; top: 12px; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; padding: 9px; border: 1px solid #d8e5f2; border-radius: 13px; background: rgba(248, 251, 255, .9); backdrop-filter: blur(12px); box-shadow: 0 7px 18px rgba(30, 64, 96, .06); }
-    .section-nav a { padding: 6px 10px; border-radius: 8px; color: #315a82; font-size: .9rem; text-decoration: none; }
-    .section-nav a:hover { color: #0b4d82; background: #e5f2ff; }
-    .learning-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin: 14px 0 8px; }
-    .learning-tools button, .follow-toolbar button, .word-audio { border: 1px solid #9fc5e5; border-radius: 9px; background: #eff7ff; color: #1c5e98; cursor: pointer; padding: 8px 12px; font-size: .94rem; transition: .15s ease; }
-    .learning-tools button:hover, .follow-toolbar button:hover, .word-audio:hover { color: #0d4776; background: #dcefff; transform: translateY(-1px); }
-    details { margin: 12px 0; border: 1px solid #dce6f0; border-radius: 10px; background: #fbfdff; }
-    details > summary { cursor: pointer; padding: 9px 12px; color: #315f88; font-weight: 700; list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
-    details > summary::before { display: inline-block; width: 1.3em; color: #3479ad; content: "＋"; }
-    details[open] > summary::before { content: "−"; }
-    details > p, details > div { padding: 0 13px 11px; }
-    .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .detail-grid > div { padding: 10px 12px; border-radius: 9px; background: #f1f7fc; }
-    .detail-title { display: block; margin-bottom: 3px; color: #3d5b79; font-weight: 750; }
-    .follow-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0 18px; }
-    #follow-status { color: #64748b; font-size: .92rem; }
-    .sentence.playing { border-color: #2563eb; box-shadow: 0 0 0 3px #dbeafe; }
-    .sentence.playing .english, .sentence.playing .translation { background: #fff7cc; border-radius: 4px; padding: 3px 6px; }
-    .full-sync-playing { color: #b45309; background: #fff7cc; border-radius: 4px; padding: 3px 6px; transition: color .15s, background .15s; }
-    .ipa { color: #7c3aed; white-space: nowrap; }
-    .pos { color: #64748b; font-size: .88rem; font-weight: 500; margin-left: 4px; }
-    .word-audio { padding: 2px 7px; font-size: 1rem; line-height: 1.2; }
-    small { color: #64748b; }
-    .app-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 4px 2px 16px; color: #5b6f87; font-size: .74rem; letter-spacing: .12em; font-weight: 800; }
-    .brand { display: inline-flex; align-items: center; gap: 9px; color: #163a61; text-decoration: none; }
-    .brand-mark { display: inline-grid; place-items: center; width: 25px; height: 25px; border-radius: 8px; color: #fff; font-size: .83rem; letter-spacing: 0; background: linear-gradient(135deg, #1e638f, #4bb6c9); box-shadow: 0 5px 12px rgba(39, 116, 184, .22); }
-    .topbar-module { color: #7287a0; }
-    .hero { position: relative; display: flex; align-items: stretch; justify-content: space-between; gap: 28px; overflow: hidden; }
-    .hero::after { position: absolute; right: -70px; bottom: -100px; width: 310px; height: 310px; border: 1px solid rgba(185, 226, 255, .18); border-radius: 50%; box-shadow: 0 0 0 28px rgba(185, 226, 255, .04), 0 0 0 56px rgba(185, 226, 255, .03); content: ""; }
-    .hero-copy { position: relative; z-index: 1; max-width: 650px; }
-    .hero-summary { position: relative; z-index: 1; display: flex; flex: 0 0 220px; flex-direction: column; justify-content: center; align-self: stretch; gap: 4px; padding: 16px 0 16px 22px; border-left: 1px solid rgba(220, 238, 255, .26); color: #dceeff; }
-    .hero-summary strong { color: #fff; font-size: 1.18rem; }
-    .hero-summary span:last-child { color: #b9d5ec; font-size: .83rem; }
-    .summary-label { color: #9fd5f6; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
-    .learning-dashboard { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 11px; margin: 15px 0 30px; }
-    .dashboard-card { display: flex; min-height: 84px; align-items: center; gap: 11px; padding: 14px 13px; border: 1px solid #dbe6f0; border-radius: 13px; background: rgba(255,255,255,.82); box-shadow: 0 5px 15px rgba(30,64,96,.045); }
-    .dashboard-card strong, .dashboard-card small { display: block; }
-    .dashboard-card strong { color: #234b73; font-size: .89rem; }
-    .dashboard-card small { margin-top: 2px; font-size: .73rem; line-height: 1.35; }
-    .dashboard-primary { border-color: #9bcce2; background: linear-gradient(135deg, #f2fbff, #eaf6fb); }
-    .dashboard-icon { display: inline-grid; place-items: center; flex: 0 0 33px; height: 33px; border-radius: 10px; color: #fff; font-size: .73rem; font-weight: 800; background: linear-gradient(135deg, #24709b, #4ab2bd); }
-    .card-arrow { align-self: flex-start; margin-left: auto; color: #6e91ae; font-size: .9rem; }
-    .section-nav { border-color: #cdddea; }
-    @media (max-width: 820px) { .learning-dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-summary { flex-basis: 195px; } }
-    @media (max-width: 680px) { body { padding: 10px 10px 56px; font-size: 15px; } .app-topbar { margin-bottom: 11px; font-size: .66rem; } .topbar-module { display: none; } .hero { display: block; padding: 24px 19px; border-radius: 16px; } .hero p { font-size: .94rem; } .hero-summary { gap: 2px; margin-top: 22px; padding: 13px 0 0; border-top: 1px solid rgba(220,238,255,.26); border-left: 0; } .learning-dashboard { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; } .dashboard-card { min-height: 78px; padding: 11px 9px; } .dashboard-icon { flex-basis: 29px; height: 29px; font-size: .65rem; } .dashboard-card strong { font-size: .78rem; } .dashboard-card small { font-size: .67rem; } .intro, .sentence { padding: 18px 14px; margin: 16px 0; border-radius: 12px; } h2 { font-size: 1.28rem; } h3 { font-size: 1.05rem; } .section-nav { top: 5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; } .section-nav a { flex: 0 0 auto; padding: 8px 10px; } .detail-grid { grid-template-columns: 1fr; } .audio { width: 100%; height: 44px; } .learning-tools button, .follow-toolbar button { min-height: 42px; } table { display: block; overflow-x: auto; white-space: nowrap; font-size: .88rem; } th, td { padding: 8px 7px; } .module-header { margin-top: 24px; } .module-index { flex-basis: 32px; height: 32px; } }
-    /* Premium robotics product skin */
-    body { position: relative; max-width: 1180px; color: #d8e6f4; background: #07111f; background-image: linear-gradient(rgba(93, 160, 205, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(93, 160, 205, .035) 1px, transparent 1px), radial-gradient(circle at 14% 0%, rgba(19, 116, 170, .28), transparent 34%), radial-gradient(circle at 90% 14%, rgba(82, 36, 145, .20), transparent 30%); background-size: 40px 40px, 40px 40px, auto, auto; }
-    .app-topbar { color: #91acc5; }
-    .brand { color: #e2f2ff; }
-    .topbar-module { color: #7995af; }
-    .hero { min-height: 258px; border-color: rgba(125, 210, 238, .32); background: radial-gradient(circle at 82% 18%, rgba(89, 200, 226, .25), transparent 24%), radial-gradient(circle at 44% 120%, rgba(62, 94, 199, .42), transparent 42%), linear-gradient(130deg, #0a2038, #102f50 54%, #17204f); box-shadow: 0 22px 55px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08); }
-    .hero::before { position: absolute; top: 24px; right: 28%; width: 7px; height: 7px; border-radius: 50%; background: #7de8f0; box-shadow: 0 0 0 7px rgba(125,232,240,.08), 0 0 28px #7de8f0; content: ""; }
-    .section-nav { border-color: rgba(117, 178, 218, .23); background: rgba(7, 20, 36, .76); box-shadow: 0 12px 30px rgba(0,0,0,.2); }
-    .section-nav a { color: #9ab9d3; }
-    .section-nav a:hover { color: #dffaff; background: rgba(64, 179, 210, .14); }
-    .learning-tools { color: #a8bfd2; }
-    .learning-tools button, .follow-toolbar button, .word-audio { border-color: rgba(111, 211, 229, .38); color: #b7f2f5; background: rgba(24, 111, 141, .15); box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
-    .learning-tools button:hover, .follow-toolbar button:hover, .word-audio:hover { color: #fff; background: rgba(54, 178, 201, .27); }
-    #learning-status, #follow-status { color: #7896b0; }
-    .learning-dashboard { margin-top: 15px; }
-    .dashboard-card { border-color: rgba(115, 186, 218, .24); background: linear-gradient(145deg, rgba(17, 42, 67, .86), rgba(10, 25, 45, .86)); box-shadow: 0 13px 28px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.06); }
-    .dashboard-card strong { color: #dbeeff; }
-    .dashboard-card small { color: #87a6bf; }
-    .dashboard-primary { border-color: rgba(86, 215, 225, .55); background: linear-gradient(145deg, rgba(18, 87, 111, .68), rgba(11, 43, 68, .88)); }
-    .card-arrow { color: #72d6df; }
-    .module-header h2 { color: #e2f1ff; }
-    .module-header p { color: #89a7c1; }
-    .intro, .sentence { position: relative; overflow: hidden; border-color: #dbe7f2; background: rgba(253, 254, 255, .98); box-shadow: 0 16px 34px rgba(0,0,0,.20), 0 1px 0 rgba(255,255,255,.8) inset; }
-    .intro::before, .sentence::before { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #36c5d2, #5483e6, #a65ce0); content: ""; }
-    .sentence[data-sentence="1"]::before { background: linear-gradient(90deg, #2dc8d8, #50a4ed); }
-    .sentence[data-sentence="2"]::before { background: linear-gradient(90deg, #50a4ed, #7180e8); }
-    .sentence[data-sentence="3"]::before { background: linear-gradient(90deg, #7180e8, #9e70df); }
-    .sentence[data-sentence="4"]::before { background: linear-gradient(90deg, #9e70df, #d265c1); }
-    .sentence[data-sentence="5"]::before { background: linear-gradient(90deg, #d265c1, #e77696); }
-    .sentence[data-sentence="6"]::before { background: linear-gradient(90deg, #e77696, #ee9a6b); }
-    .sentence[data-sentence="7"]::before { background: linear-gradient(90deg, #ee9a6b, #e6bf63); }
-    .sentence[data-sentence="8"]::before { background: linear-gradient(90deg, #e6bf63, #69c890); }
-    .full-sync-playing { color: #9a5100; background: linear-gradient(90deg, #fff0bd, #fff9e5); box-shadow: 0 4px 12px rgba(223, 161, 46, .16); }
-    .sentence.playing { border-color: #53a9cf; box-shadow: 0 0 0 3px rgba(83,169,207,.18), 0 16px 34px rgba(0,0,0,.20); }
-    /* Readable content layer */
-    body { color: #23364d; background: #f2f6fb; background-image: radial-gradient(circle at 5% 0%, rgba(76, 165, 207, .12), transparent 30%), linear-gradient(135deg, #f6f9fd, #edf3f9); }
-    .app-topbar { color: #6c8198; }
-    .brand { color: #173d64; }
-    .topbar-module { color: #6f849b; }
-    .section-nav { border-color: #c8d8e8; background: rgba(255,255,255,.9); box-shadow: 0 7px 18px rgba(34,72,107,.08); }
-    .section-nav a { color: #3c6384; }
-    .section-nav a:hover { color: #154d78; background: #e5f2ff; }
-    .learning-tools { color: #60788f; }
-    .learning-tools button, .follow-toolbar button, .word-audio { border-color: #a8c4dc; color: #1c5e98; background: #f2f8fd; box-shadow: 0 2px 5px rgba(30,76,112,.06); }
-    .learning-tools button:hover, .follow-toolbar button:hover, .word-audio:hover { color: #0d4776; background: #e1f1ff; }
-    #learning-status, #follow-status { color: #6f8498; }
-    .learning-dashboard { margin-bottom: 34px; }
-    .dashboard-card { border-color: #d1dfec; color: #243d57; background: linear-gradient(145deg, #ffffff, #f3f8fc); box-shadow: 0 8px 20px rgba(32,73,109,.08); }
-    .dashboard-card strong { color: #214b72; }
-    .dashboard-card small { color: #6d8298; }
-    .dashboard-primary { border-color: #9bcce2; background: linear-gradient(145deg, #f8fdff, #eaf6fb); }
-    .module-header h2 { color: #173d64; }
-    .module-header p { color: #6c8198; }
-    .intro, .sentence { border-color: #d5e1ec; background: #ffffff; box-shadow: 0 12px 26px rgba(31,67,101,.09), 0 1px 0 rgba(255,255,255,.95) inset; }
-    .sentence { padding-left: 82px; }
-    .sentence::after { position: absolute; top: 24px; left: 25px; display: grid; place-items: center; width: 37px; height: 37px; border: 1px solid #cfe0ee; border-radius: 12px; color: #2b77a5; font-size: 1.02rem; font-weight: 850; background: #eff7fc; content: attr(data-sentence); }
-    .sentence h3 { color: #1d5b8c; font-size: 1.18rem; }
-    .english { color: #112c48; font-size: 1.1rem; line-height: 1.8; }
-    .translation { color: #455a71; }
-    .pronunciation { color: #68459a; }
-    .tip { color: #375976; border-left-color: #3888bd; background: #eef7ff; }
-    details { border-color: #d8e4ee; background: #fbfdff; }
-    details > summary { color: #2e6189; }
-    .detail-grid > div { background: #f1f7fc; }
-    table { border-color: #dbe5ee; }
-    th { color: #3f607e; background: #f2f7fb; }
-    .full-sync-playing { color: #9a5100; background: linear-gradient(90deg, #fff0bd, #fff9e5); box-shadow: 0 4px 12px rgba(223,161,46,.16); }
-    .sentence.playing { border-color: #65afd0; box-shadow: 0 0 0 3px rgba(83,169,207,.16), 0 12px 26px rgba(31,67,101,.12); }
-    @media (max-width: 680px) { .sentence { padding-left: 18px; padding-top: 62px; } .sentence::after { top: 18px; left: 18px; } .sentence h3 { font-size: 1.08rem; } .english { font-size: 1.03rem; } }
-    /* Precision learning workspace */
-    :root { color-scheme: light; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    body { max-width: 1160px; padding: 24px 26px 80px; color: #1f344a; background: #f4f7fa; background-image: radial-gradient(circle at 7% -5%, rgba(44, 178, 181, .12), transparent 25%), linear-gradient(135deg, #fbfcfd 0%, #eef3f7 100%); }
-    .app-topbar { max-width: 1080px; margin: 0 auto 17px; color: #71869a; }
-    .brand { color: #143f63; }
-    .brand-mark { width: 28px; height: 28px; border-radius: 9px; background: #143f63; box-shadow: 0 5px 12px rgba(20,63,99,.18); }
-    .hero { max-width: 1080px; min-height: 235px; margin: 0 auto; padding: 39px 42px; border: 0; border-radius: 22px; background: linear-gradient(118deg, #122e4b 0%, #194462 56%, #206c76 100%); box-shadow: 0 19px 36px rgba(20,63,99,.17); }
-    .hero::after { right: -95px; bottom: -145px; width: 380px; height: 380px; border-color: rgba(179,239,231,.19); box-shadow: 0 0 0 32px rgba(179,239,231,.035), 0 0 0 64px rgba(179,239,231,.025); }
-    .hero::before { top: 27px; right: 29%; }
-    .hero-copy { max-width: 680px; }
-    .eyebrow { color: #9ae6df; font-size: .68rem; letter-spacing: .18em; }
-    .hero h1 { margin: 12px 0 12px; font-size: clamp(2rem, 4.5vw, 3.1rem); line-height: 1.1; letter-spacing: -.045em; }
-    .hero p { color: #d0e5ed; font-size: 1rem; line-height: 1.8; }
-    .hero-summary { flex-basis: 235px; border-left-color: rgba(218,245,246,.3); }
-    .hero-summary strong { color: #fff; }
-    .hero-summary span:last-child { color: #b7d9df; }
-    .section-nav { max-width: 1080px; margin: 17px auto 22px; border-color: #d2e0e9; background: rgba(255,255,255,.9); box-shadow: 0 7px 17px rgba(25,61,91,.06); }
-    .section-nav a { color: #3d6685; }
-    .section-nav a:hover { color: #174b72; background: #eaf7f6; }
-    .learning-tools { max-width: 1080px; margin: 0 auto 12px; color: #637b90; }
-    .learning-tools button, .follow-toolbar button, .word-audio { border-color: #b8d1df; color: #1f6880; background: #f7fbfc; box-shadow: 0 2px 5px rgba(25,61,91,.05); }
-    .learning-tools button:hover, .follow-toolbar button:hover, .word-audio:hover { color: #0d536c; background: #e5f5f4; }
-    #learning-status, #follow-status { color: #6d8295; }
-    .learning-dashboard { max-width: 1080px; grid-template-columns: repeat(4, 1fr); margin: 0 auto 34px; }
-    .dashboard-card { border-color: #d7e3eb; background: #fff; box-shadow: 0 8px 18px rgba(25,61,91,.055); }
-    .dashboard-card strong { color: #254c6c; }
-    .dashboard-card small { color: #72879a; }
-    .dashboard-primary { border-color: #81c5c0; background: linear-gradient(135deg, #f3fbfa, #e8f7f5); }
-    .dashboard-icon { background: #2f9e9d; box-shadow: 0 5px 10px rgba(47,158,157,.2); }
-    .card-arrow { color: #3b9b9b; }
-    #overview, .sentence, #business-versions, #customer-qa, #meeting-phrases, #follow-up-email { max-width: 1080px; margin-left: auto; margin-right: auto; border-color: #d8e3eb; background: #fff; box-shadow: 0 12px 26px rgba(25,61,91,.07); }
-    .intro::before, .sentence::before { height: 3px; background: #50aaa6; }
-    #overview::before { background: linear-gradient(90deg, #2e9c9b, #74b8df); }
-    .sentence { padding-left: 86px; }
-    .sentence::after { border-color: #d2e2eb; color: #2c8194; background: #f1f9f8; box-shadow: 0 4px 9px rgba(47,158,157,.08); }
-    .sentence h3 { color: #1e5c7a; font-size: 1.18rem; }
-    .english { color: #102b45; font-size: 1.11rem; line-height: 1.82; }
-    .translation { color: #415970; }
-    .pronunciation { color: #694a99; }
-    .module-header { max-width: 1080px; margin: 39px auto 13px; }
-    .module-header h2 { color: #173d60; }
-    .module-header p { color: #6c8397; }
-    details { border-color: #d9e5ed; background: #fbfdfe; }
-    details > summary { color: #2b7082; }
-    .detail-grid > div { background: #f1f7f9; }
-    table { border-color: #d9e4eb; }
-    th { color: #3e607a; background: #f2f7fa; }
-    .tip { color: #406078; border-left-color: #4ca6a4; background: #edf8f7; }
-    .full-sync-playing { color: #9a5100; background: #fff3c7; }
-    .sentence.playing { border-color: #63b7bb; box-shadow: 0 0 0 3px rgba(76,166,164,.14), 0 12px 26px rgba(25,61,91,.1); }
-    @media (max-width: 820px) { .learning-dashboard { grid-template-columns: repeat(2, 1fr); } .hero-summary { flex-basis: 205px; } }
-    @media (max-width: 680px) { body { padding: 14px 12px 58px; } .hero { min-height: 0; padding: 29px 22px; } .hero h1 { font-size: 2.18rem; } .hero-summary { margin-top: 22px; padding: 13px 0 0; border-top: 1px solid rgba(218,245,246,.3); border-left: 0; } .learning-dashboard { grid-template-columns: 1fr 1fr; gap: 8px; } .dashboard-card { min-height: 78px; padding: 11px 9px; } .dashboard-icon { flex-basis: 29px; height: 29px; } .sentence { padding: 60px 17px 18px; } .sentence::after { top: 18px; left: 18px; } .intro, .sentence { margin-top: 16px; } .module-header { margin-top: 27px; } }
-  </style>
+  <link rel="stylesheet" href="learning-assets/workspace.css">
   <link rel="stylesheet" href="learning-assets/grammar-coach.css">
   <link rel="stylesheet" href="learning-assets/audio-controls.css">
+  <link rel="stylesheet" href="learning-assets/course-workspace.css">
 </head>
-<body>
-  <div class="app-topbar">
-    <a class="brand" href="robotics_english_library.html" aria-label="返回机器人行业商务英语资料库"><span class="brand-mark">R</span><span>ROBOTICS ENGLISH LAB</span></a>
-    <a class="daily-practice-link" href="daily_practice.html">今日练习 ↗</a>
-  </div>
-  <header class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow">ROBOTICS BUSINESS ENGLISH · PRODUCT MODULE 01</div>
-      <h1>机器人产品英文介绍</h1>
-      <p>听懂产品、讲清技术、回应客户。把每天的产品资料，积累成可复用的海外商务沟通能力。</p>
-    </div>
-    <div class="hero-summary">
-      <span class="summary-label">MODULE FOCUS</span>
-      <strong>Joint &amp; Robotic Arm</strong>
-      <span>8 句精读 · 30+ 个术语 · 3 个表达版本</span>
-    </div>
-  </header>
-  <nav class="section-nav" aria-label="学习模块导航">
-    <a href="#overview">整体听读</a>
-    <a href="#sentence-study">逐句精读</a>
-    <a href="#business-versions">产品表达</a>
-    <a href="#customer-qa">客户问答</a>
-    <a href="#meeting-phrases">会议表达</a>
-    <a href="#follow-up-email">邮件跟进</a>
-    <a href="vocabulary_library.html">单词库 ↗</a>
+<body class="lab-page course-page" data-page="course">
+  <div data-site-header></div>
+  <main id="main-content" class="lab-main course-main">
+  <header class="page-heading"><div><h1>机器人关节与机械臂</h1><p>产品课程 01 · 8 句精读 · 核心部件与产品优势</p></div></header>
+  <p id="learning-status" class="storage-notice" role="status" aria-live="polite" hidden></p>
+  <nav class="course-modes" aria-label="课程阅读方式">
+    <button type="button" data-course-mode="sentence" aria-pressed="true">逐句精读</button>
+    <button type="button" data-course-mode="listen" aria-pressed="false">整体听读</button>
+    <button type="button" data-course-mode="business" aria-pressed="false">客户表达</button>
   </nav>
-  <div class="learning-tools">
-    <button id="expand-translations" type="button">展开全部中文</button>
-    <button id="expand-details" type="button">展开全部讲解</button>
-    <span id="learning-status">建议顺序：先听 → 跟读 → 看语法 → 脱稿表达。</span>
-  </div>
-  <section class="learning-dashboard" aria-label="学习模块概览">
-    <div class="dashboard-card dashboard-primary"><span class="dashboard-icon">◉</span><div><strong>Listen &amp; Shadow</strong><small>完整音频与逐句跟读</small></div><span class="card-arrow">↗</span></div>
-    <div class="dashboard-card"><span class="dashboard-icon">Aa</span><div><strong>Deep Dive</strong><small>翻译、语法与发音细节</small></div><span class="card-arrow">↗</span></div>
-    <div class="dashboard-card"><span class="dashboard-icon">Q&amp;A</span><div><strong>Business Talk</strong><small>客户问答与会议表达</small></div><span class="card-arrow">↗</span></div>
-    <a class="dashboard-card" href="vocabulary_library.html"><span class="dashboard-icon">↻</span><div><strong>Vocabulary</strong><small>集中背词、例句与循环听读</small></div><span class="card-arrow">↗</span></a>
-  </section>
+  <div class="course-unit-nav" data-course-unit-nav><label for="course-sentence-select">学习句子 <select id="course-sentence-select" aria-label="选择学习的句子"></select></label><div><button type="button" data-course-prev aria-label="上一句">←</button><button type="button" data-course-next aria-label="下一句">→</button></div></div>
+  <nav class="business-nav" data-business-nav hidden aria-label="客户表达目录"><a href="#business-versions">介绍版本</a><a href="#customer-qa">客户问答</a><a href="#meeting-phrases">会议表达</a><a href="#follow-up-email">邮件模板</a></nav>
 
   <section id="overview" class="intro">
     <h2>完整音频</h2>
     <audio id="full-sync-audio" class="audio" controls preload="metadata" src="product_introduction_sync_full.m4a"></audio>
-    <p><span class="label">建议：</span>先完整听一遍，熟悉整体节奏，再回到下面逐句练习。</p>
     <div class="follow-toolbar">
       <button id="follow-start" type="button">播放全文</button>
       <button id="follow-stop" type="button">从头播放</button>
-      <span id="follow-status">播放时高亮当前句；暂停后可原位继续，开启循环可反复听全文。</span>
+      <span id="follow-status" role="status" aria-live="polite"></span>
     </div>
     <h3>完整英文原文</h3>
     <p class="english" data-full-sync="en" data-sync-index="1">From twenty eighteen to twenty twenty-one, we spent approximately three and a half years refining our products.</p>
@@ -433,6 +216,10 @@
     <p class="translation"><span class="label">意思：</span>我们自主开发核心零部件，因此能够打造出小巧、轻量、高性能且可靠的机械臂。</p>
   </section>
 
+  <details class="course-preferences"><summary>阅读设置</summary><div class="learning-tools"><button id="expand-translations" type="button">展开全部中文</button><button id="expand-details" type="button">展开全部讲解</button></div></details>
+  <p class="course-tail"><a href="vocabulary_library.html">去单词库集中背词 →</a><a href="daily_practice.html">用今日练习检验理解 →</a></p>
+  <noscript><p>开启 JavaScript 后可逐句切换和同步高亮；下方原文与音频仍可阅读和播放。</p></noscript>
+  </main><footer class="site-footer">保留每次练习，慢慢说得更自然。</footer><div data-site-nav></div>
   <script>
     const sentenceNotes = {
       "1": {
@@ -730,5 +517,7 @@
   <script src="learning-assets/grammar-lessons.js"></script>
   <script src="learning-assets/grammar-coach.js"></script>
   <script src="learning-assets/audio-controls.js"></script>
+  <script src="learning-assets/course-workspace.js"></script>
+  <script src="learning-assets/workspace.js"></script>
 </body>
 </html>
