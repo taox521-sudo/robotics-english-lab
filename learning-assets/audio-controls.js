@@ -7,12 +7,14 @@
     pause: '<path d="M8 5v14M16 5v14"/>',
     restart: '<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',
     speaker: '<path d="M11 5 6 9H3v6h3l5 4V5ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>',
-    repeat: '<path d="m16 3 4 4-4 4M4 11V9a2 2 0 0 1 2-2h14M8 21l-4-4 4-4m12 0v2a2 2 0 0 1-2 2H4"/>'
+    repeat: '<path d="m16 3 4 4-4 4M4 11V9a2 2 0 0 1 2-2h14M8 21l-4-4 4-4m12 0v2a2 2 0 0 1-2 2H4"/>',
+    speed: '<path d="M4 19 19 4M9 4h10v10"/>'
   };
   const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
   function buttonLabel(button, label, glyph) {
     button.innerHTML = `${icon(glyph)}<span></span>`;
     button.querySelector('span').textContent = label;
+    button.querySelector('span').className = 'listening-sr-only';
   }
   function enhance(audio, existingBar) {
     if (audio.dataset.listeningReady) return;
@@ -38,7 +40,7 @@
     restart.title='从头播放';
     const label = document.createElement('label');
     label.className = 'listening-loop';
-    label.innerHTML = `<input type="checkbox" data-audio-loop aria-label="循环播放"><span class="listening-loop-face">${icon('repeat')}<span>循环</span></span>`;
+    label.innerHTML = `<input type="checkbox" data-audio-loop aria-label="循环播放"><span class="listening-loop-face">${icon('repeat')}<span class="listening-sr-only">循环</span></span>`;
     label.title = '反复播放当前音频，直到手动暂停；切换到其他音频会暂停本段。';
     const loop = label.querySelector('input');
     loop.checked = audio.loop;
@@ -56,7 +58,7 @@
     const mainRow=document.createElement('div');mainRow.className='listening-main';
     const timeline=document.createElement('div');timeline.className='listening-timeline';
     const metadata=document.createElement('div');metadata.className='listening-meta';
-    const state=document.createElement('span');state.className='listening-state';
+    const state=document.createElement('span');state.className='listening-state listening-sr-only';
     const seek=document.createElement('input');
     seek.type='range'; seek.min='0'; seek.max='1'; seek.step='0.1'; seek.value='0';
     seek.className='listening-seek'; seek.setAttribute('aria-label',`${context}：播放进度`); seek.setAttribute('aria-controls',audio.id);
@@ -64,7 +66,7 @@
     const options=document.createElement('div');options.className='listening-options';
     options.append(restart,label);
     const speed=document.createElement('label');speed.className='listening-speed';
-    speed.innerHTML='<span>倍速</span><select aria-label="音频播放速度"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option></select>';
+    speed.innerHTML=`<span class="listening-speed-icon">${icon('speed')}</span><select aria-label="音频播放速度" title="播放速度"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option></select>`;
     let selectedRate=audio.playbackRate||1;
     const speedSelect=speed.querySelector('select');speedSelect.addEventListener('change',()=>{selectedRate=Number(speedSelect.value);audio.defaultPlaybackRate=selectedRate;audio.playbackRate=selectedRate;});
     audio.addEventListener('loadedmetadata',()=>{audio.playbackRate=selectedRate;});
