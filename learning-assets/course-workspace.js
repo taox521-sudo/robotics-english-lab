@@ -6,6 +6,7 @@
   const sentences=[...main.querySelectorAll(':scope > .sentence')];
   const overview=document.getElementById('overview');
   const business=[...main.querySelectorAll(':scope > .intro')].filter(el=>el!==overview);
+  const modules=[...main.querySelectorAll(':scope > .module-two')];
   const storageKey='robotics-english:reading:joint-arm-01';
   let selected=1,mode='listen';
   try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(Number.isInteger(saved?.sentence)&&saved.sentence>=1&&saved.sentence<=sentences.length)selected=saved.sentence;}catch{}
@@ -18,7 +19,7 @@
   });
   function hide(el,value){el.hidden=value;if(value)el.querySelectorAll('audio').forEach(audio=>{if(!audio.paused)audio.pause();});}
   function render(){
-    hide(overview,mode!=='listen');business.forEach(el=>hide(el,mode!=='business'));sentences.forEach(el=>hide(el,mode!=='sentence'));
+    hide(overview,mode!=='listen');business.forEach(el=>hide(el,mode!=='business'));modules.forEach(el=>hide(el,mode==='business'));sentences.forEach(el=>hide(el,mode!=='sentence'));
     main.querySelector('[data-business-nav]').hidden=mode!=='business';
     main.querySelectorAll('[data-course-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.courseMode===mode)));
   }

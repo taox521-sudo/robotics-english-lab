@@ -7,7 +7,8 @@
 - `index.html`：学习资料库首页
 - `daily_practice.html`：独立的今日练习页
 - `vocabulary_library.html`：长期积累的独立单词库，支持搜索、词性筛选、例句和发音
-- `product_introduction_learning_guide.html`：机器人关节与机械臂产品英语模块
+- `product_introduction_learning_guide.html`：机器人关节与机械臂、全球远程作业网络产品英语模块
+- `learning-assets/module-two-content.js`：全球远程作业网络模块内容、逐句翻译、语法、发音提示和词汇
 - `learning-assets/`：语法教练、音频控制和页面样式
 - `learning-assets/workspace.css` / `workspace.js`：四页共享的排版、导航和首页进度入口
 - `learning-assets/course-workspace.js`：课程视图切换、逐句选择和阅读位置
