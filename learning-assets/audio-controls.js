@@ -152,7 +152,7 @@
   });
 
   // A persistent player beneath each vocabulary table keeps the selected word's position.
-  document.querySelectorAll('.sentence').forEach(section => {
+  document.querySelectorAll('.sentence,.module-two-sentence').forEach(section => {
     const buttons = [...section.querySelectorAll('.word-audio[data-audio-src]')];
     if (!buttons.length) return;
     const panel = document.createElement('div');
