@@ -14,9 +14,10 @@
   try {
     const progress=JSON.parse(localStorage.getItem('robotics-english:reading:joint-arm-01')||'null');
     if(progress&&Number.isInteger(progress.sentence)&&progress.sentence>=1&&progress.sentence<=8){
-      const resume=document.querySelector('[data-resume]');
+      const resume=document.querySelector('[data-course-primary][data-resume]')||document.querySelector('[data-resume]');
       resume.href=`product_introduction_learning_guide.html#sentence-${progress.sentence}`;
-      resume.querySelector('small').textContent=`上次停留：第 ${progress.sentence} 句 · 机器人关节与机械臂`;
+      const resumeMeta=resume.querySelector('small');
+      if(resumeMeta)resumeMeta.textContent=`上次停留：第 ${progress.sentence} 句 · 机器人关节与机械臂`;
     }
     const raw=JSON.parse(localStorage.getItem('robotics-english:vocabulary:mastered:v1')||'[]');
     const known=new Set(Array.isArray(raw)?raw:[]);
